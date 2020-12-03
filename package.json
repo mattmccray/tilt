@@ -1,0 +1,37 @@
+{
+  "name": "tilt",
+  "version": "1.0.0",
+  "description": "Static website toolkit with Metalsmith underpinnings",
+  "keywords": [
+    "Static",
+    "Generator",
+    "Metalsmith",
+    "TypeScript",
+    "Components"
+  ],
+  "types": "lib/index.d.ts",
+  "main": "lib/index.js",
+  "files”": [
+    "lib/**/*"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "version": "git add -A src",
+    "postversion": "git push && git push --tags",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattmccray/tilt.git"
+  },
+  "author": "Matt McCray",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mattmccray/tilt/issues"
+  },
+  "homepage": "https://github.com/mattmccray/tilt#readme",
+  "devDependencies": {
+    "typescript": "^4.1.2"
+  }
+}
