@@ -1,6 +1,6 @@
 import _ from "lodash";
 import html, { css } from "../core/render.js";
-import registerContent from "../core/registry.js";
+import { registerClient } from "../core/registry.js";
 
 interface StyledComponent {
   (props?: { className?: string }, children?: string): string,
@@ -20,7 +20,7 @@ function styled_(name: string, tag: string, styles: string | ((cls: string) => s
     ? styles(`.${innerCls}`)
     : `.${innerCls} { ${styles} }`
 
-  registerContent.stylesheet(css)
+  registerClient.stylesheet(css)
 
   const Component = function (props?: { className?: string }, children?: any) {
     const className = (!!props && 'className' in props) ? props.className : ''

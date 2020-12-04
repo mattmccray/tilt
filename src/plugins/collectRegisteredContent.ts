@@ -12,7 +12,7 @@ import contentRegistry, { CONTENT_TYPE_CSS, CONTENT_TYPE_JS } from "../core/regi
  *    })
  * 
  */
-export function collectRegisteredContent({ css: cssPath, js: jsPath, hash = false }: { css: string, js: string, hash: boolean }) {
+export function collectRegisteredContent({ css: cssPath, js: jsPath, hash = false }: { css: string, js: string, hash?: boolean }) {
   return (files: Fileset, tilt: Tilt, done: Callback) => {
     setImmediate(done);
 
