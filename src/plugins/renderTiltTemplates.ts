@@ -1,8 +1,6 @@
 import multimatch from "multimatch";
 import { join } from 'path'
-import { useSite, usePage } from "../core/hooks";
-import Tilt from "../core/tilt";
-import { Fileset } from "../core/types";
+import { Tilt, Callback, Fileset, useSite, usePage } from "../core";
 
 /**
  * Render tilt templates (before layouts)
@@ -15,10 +13,11 @@ import { Fileset } from "../core/types";
  * @param {*} [options] 
  */
 export function renderTiltTemplates(options?: {}) {
-  return async (files: Fileset, tilt: Tilt, done: () => void) => {
+  return async (files: Fileset, tilt: Tilt, done: Callback) => {
     const getFilePath = (filepath: string) => join((tilt as any)._directory, (tilt as any)._source, filepath);
     const site = useSite()
-    const templateFiles = multimatch(Object.keys(files), "**/*.tilt.js");
+    const templateFiles = multimatch(Object.keys(files), "**/*.tilt.{j,t}s");
+    console.log("templateFiles", templateFiles)
 
     await Promise.all(
       templateFiles.map(async (file: string) => {
@@ -31,7 +30,10 @@ export function renderTiltTemplates(options?: {}) {
             page: files[file]
           });
 
-          files[file.replace(".tilt.js", "")] = files[file];
+          let newPath = file.replace(".tilt.js", "")
+          newPath = newPath.replace(".tilt.ts", "")
+
+          files[newPath] = files[file];
           delete files[file];
         }
         catch (e) {

@@ -9,6 +9,7 @@
     "TypeScript",
     "Components"
   ],
+  "type": "module",
   "types": "lib/index.d.ts",
   "main": "lib/index.js",
   "files”": [

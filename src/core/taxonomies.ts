@@ -2,7 +2,7 @@ import sortBy from 'lodash/sortBy'
 import { Fileset, Page } from './types'
 
 
-class TagSet {
+export class TagSet {
   name: string
   slug: string
   sortBy: string // Fieldname?

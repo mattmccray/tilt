@@ -1,6 +1,4 @@
-import { usePage, useSite } from "../core/hooks";
-import Tilt from "../core/tilt";
-import { Component, Fileset, LayoutComponent } from "../core/types";
+import { Tilt, Callback, Fileset, Component, LayoutComponent, usePage, useSite } from "../core";
 
 /**
  * Handle Templating (use last of all)
@@ -19,7 +17,7 @@ import { Component, Fileset, LayoutComponent } from "../core/types";
  * 
  */
 export function renderLayouts({ layouts }: { layouts: { [name: string]: LayoutComponent } }) {
-  return async (files: Fileset, tilt: Tilt, done: () => void) => {
+  return async (files: Fileset, tilt: Tilt, done: Callback) => {
     const layoutFiles = Object.keys(files).filter(file => files[file].layout);
     const site = useSite()
 

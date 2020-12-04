@@ -1,7 +1,5 @@
-import Metalsmith from "metalsmith";
 import multimatch from "multimatch";
-import Tilt from "../core/tilt";
-import { Fileset } from "../core/types";
+import { Tilt, Callback, Fileset } from "../core";
 
 /**
  * Set default layouts
@@ -15,7 +13,7 @@ import { Fileset } from "../core/types";
  * @param {object} options 
  */
 export function applyDefaultLayoutsPlugin(options: { [path: string]: string }) {
-  return (files: Fileset, tilt: Tilt, done: Metalsmith.Callback) => {
+  return (files: Fileset, tilt: Tilt, done: Callback) => {
     setImmediate(done);
     const filenames = Object.keys(files)
     const paths = Object.keys(options)

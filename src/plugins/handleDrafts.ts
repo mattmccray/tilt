@@ -1,6 +1,5 @@
 import multimatch from "multimatch";
-import Tilt from "../core/tilt";
-import { Fileset } from "../core/types";
+import { Tilt, Callback, Fileset } from "../core";
 
 /**
  * Removes or promotes draft pages.
@@ -14,7 +13,7 @@ import { Fileset } from "../core/types";
  * 
  */
 export function handleDrafts({ paths, markOnly = false }: { paths: string[], markOnly?: boolean }) {
-  return (files: Fileset, tilt: Tilt, done: () => void) => {
+  return (files: Fileset, tilt: Tilt, done: Callback) => {
     setImmediate(done);
 
     paths.forEach((path) => {

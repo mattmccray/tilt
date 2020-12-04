@@ -1,7 +1,5 @@
 import { basename, extname } from 'path'
-import { useFiles } from '../core/hooks';
-import Tilt from '../core/tilt';
-import { Fileset, Page } from '../core/types';
+import { Tilt, Callback, Fileset, useFiles, Page } from "../core";
 import toSlug from '../helpers/toSlug';
 
 
@@ -14,7 +12,7 @@ import toSlug from '../helpers/toSlug';
  * - Ensures categories are {name, slug}[][]
  */
 export function normalizePages(options?: {}) {
-  return (files: Fileset, tilt: Tilt, done: () => void) => {
+  return (files: Fileset, tilt: Tilt, done: Callback) => {
     setImmediate(done);
 
     Object.values(files).forEach(normalizePageData)

@@ -1,9 +1,7 @@
 import multimatch from "multimatch";
 import merge from 'mergerino'
 import _ from 'lodash'
-import Metalsmith from "metalsmith";
-import Tilt from "../core/tilt";
-import { Fileset } from "../core/types";
+import { Tilt, Callback, Fileset } from "../core";
 
 /**
  * Set default layouts
@@ -22,7 +20,7 @@ import { Fileset } from "../core/types";
  * @param {object} options 
  */
 export function applyDefaultMetadata(options: { [path: string]: any }) {
-  return (files: Fileset, tilt: Tilt, done: Metalsmith.Callback) => {
+  return (files: Fileset, tilt: Tilt, done: Callback) => {
     setImmediate(done);
     const filenames = Object.keys(files)
     const paths = Object.keys(options)

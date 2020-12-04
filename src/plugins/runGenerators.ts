@@ -1,13 +1,10 @@
-import { Files } from 'metalsmith';
 import { join } from 'path';
-import { getContext, _popContextStack, _pushContextStack } from "../core/context";
-import { usePage, useSite } from '../core/hooks';
-import Tilt from '../core/tilt';
-import { Page } from '../core/types';
+import { Tilt, Callback, Fileset, Page, usePage, useSite, getContext } from "../core";
 import { normalizePageData } from './normalizePages';
+import { _popContextStack, _pushContextStack } from "../core/context";
 
 export function runGenerators(options?: {}) {
-  return async (files: Files, tilt: Tilt, done: () => void) => {
+  return async (files: Fileset, tilt: Tilt, done: Callback) => {
     const getFilePath = (filepath: string) => join((tilt as any)._directory, (tilt as any)._source, filepath);
 
     const site = useSite()

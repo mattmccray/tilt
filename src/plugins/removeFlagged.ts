@@ -1,11 +1,10 @@
-import Tilt from "../core/tilt";
-import { Fileset } from "../core/types";
+import { Tilt, Callback, Fileset } from "../core";
 
 /**
  * Remove any flagged or draft content 
  */
 export function removeFlagged(options?: {}) {
-  return (files: Fileset, tilt: Tilt, done: () => void) => {
+  return (files: Fileset, tilt: Tilt, done: Callback) => {
     setImmediate(done);
     Object.keys(files).forEach(file => {
       const isFlaggedContent = (

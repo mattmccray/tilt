@@ -1,17 +1,22 @@
-export { Callback } from 'metalsmith'
+import { Stats } from "fs";
+import Tilt from './tilt';
+
+export type Plugin = (files: Fileset, tilt: Tilt, callback: Callback) => void;
+
+export type Callback = (err?: Error | null, files?: Fileset, tilt?: Tilt) => void;
+export type Ignore = (path: string, stat: Stats) => void;
 
 export type Component = (props?: any, children?: string) => string
 export type LayoutComponent = (props: { site: Site, page: Page }, children?: string) => string
 
 export interface Site {
-  title: string
-  description: string
+  /** Provided at build time. */
+  builtAt?: Date
+  /** Provided at build time. */
+  isDevelopment?: boolean
   url: string
-  icon: string
-  author: string
-  isDevelopment: boolean
-  builtAt: string
 }
+
 
 export interface Page {
   // EVERY PAGE HAS AT LEAST THIS:

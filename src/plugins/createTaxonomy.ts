@@ -1,15 +1,12 @@
 import { Taxonomy } from "../core/taxonomies";
-import { useTaxonomy } from "../core/hooks";
-import Tilt from "../core/tilt";
-import Metalsmith from "metalsmith";
-import { Fileset } from "../core/types";
+import { Tilt, Callback, Fileset, useTaxonomy } from "../core";
 
 /**
  * Creates Taxonomy of all pages with tags or cateogories 
  * @param {any} [options] 
  */
 export function createTaxonomy(options?: {}) {
-  return (files: Fileset, tilt: Tilt, done: Metalsmith.Callback) => {
+  return (files: Fileset, tilt: Tilt, done: Callback) => {
     setImmediate(done);
 
     // Create taxonomy of all content

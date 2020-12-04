@@ -1,9 +1,6 @@
-import { setContext } from "../core/context";
+import { Tilt, Callback, Fileset, setContext } from "../core";
 import getHash from "../helpers/getHash";
 import contentRegistry, { CONTENT_TYPE_CSS, CONTENT_TYPE_JS } from "../core/registry";
-import { Fileset } from "../core/types";
-import Tilt from "../core/tilt";
-import Metalsmith from "metalsmith";
 
 /**
  * Extract registered Styles and Scripts, creating files at the specified
@@ -16,7 +13,7 @@ import Metalsmith from "metalsmith";
  * 
  */
 export function collectRegisteredContent({ css: cssPath, js: jsPath, hash = false }: { css: string, js: string, hash: boolean }) {
-  return (files: Fileset, tilt: Tilt, done: Metalsmith.Callback) => {
+  return (files: Fileset, tilt: Tilt, done: Callback) => {
     setImmediate(done);
 
     // Extract generated CSS

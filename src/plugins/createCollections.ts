@@ -1,9 +1,6 @@
 import multimatch from "multimatch";
-import { useCollection } from "../core/hooks";
 import sortBy from 'lodash/sortBy';
-import { Fileset } from "../core/types";
-import Tilt from "../core/tilt";
-import Metalsmith from "metalsmith";
+import { Tilt, Callback, Fileset, useCollection } from "../core";
 
 interface CollectionConfig {
   /** defaults to first segment of path-- This will be the key for useCollection(key) */
@@ -33,7 +30,7 @@ interface CollectionConfig {
  * @param {Object.<string, CollectionConfig>} options 
  */
 export function createCollections(options: { [pathGlob: string]: CollectionConfig }) {
-  return (files: Fileset, tilt: Tilt, done: Metalsmith.Callback) => {
+  return (files: Fileset, tilt: Tilt, done: Callback) => {
     setImmediate(done);
 
     Object.keys(options).forEach(path => {
@@ -100,8 +97,12 @@ function createCollection(files: Fileset, pattern: string, sortField = "-date-ti
 
 // export default createCollection
 
+interface DateTitleSortable {
+  title: string
+  date: Date
+}
 
-const sortByDateThenTitle = (a: any, b: any) => {
+const sortByDateThenTitle = (a: DateTitleSortable, b: DateTitleSortable) => {
   const formatForDateSort = (date: any) =>
     Number(
       date
