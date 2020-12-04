@@ -1,4 +1,4 @@
-import { Tilt, Callback, Fileset } from "../core/index.js";
+import { Tilt, Callback, Fileset } from "../core.js";
 
 /**
  * Remove any flagged or draft content 

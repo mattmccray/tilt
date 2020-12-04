@@ -2,8 +2,6 @@ import _ from "lodash";
 import html, { css } from "../core/render.js";
 import registerContent from "../core/registry.js";
 
-
-
 interface StyledComponent {
   (props?: { className?: string }, children?: string): string,
   className: string
@@ -23,7 +21,6 @@ function styled_(name: string, tag: string, styles: string | ((cls: string) => s
     : `.${innerCls} { ${styles} }`
 
   registerContent.stylesheet(css)
-
 
   const Component = function (props?: { className?: string }, children?: any) {
     const className = (!!props && 'className' in props) ? props.className : ''
@@ -45,26 +42,13 @@ export const styled: StyledComponentBuilder = new Proxy(styled_, {
 export default styled
 
 
-let classCount = 177000 // 100000
+let classCount = 177000 
 
 function generateClassName(name?: string, tag?: string) {
   classCount += 1
-  return '_' + classCount.toString(26) //.toString(36)
+  return '_' + classCount.toString(26) 
 }
 
 // const Test = styled.div`
 //   color: red;
 // `
-
-// const T2 = styled('button', css`
-//   color: blue;
-// `)
-
-// const T3 = styled('button', cls => css`
-//   .${cls} {
-//     color: green;
-//   }
-//   .${cls}:hover {
-//     color: yellow;
-//   }
-// `)

@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { Tilt, Callback, Fileset, Page, usePage, useSite, getContext } from "../core/index.js";
+import { Tilt, Callback, Fileset, Page, usePage, useSite, getContext } from "../core.js";
 import { normalizePageData } from './normalizePages.js';
 import { _popContextStack, _pushContextStack } from "../core/context.js";
 

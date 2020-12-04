@@ -1,7 +1,7 @@
 import multimatch from "multimatch";
 import merge from 'mergerino'
 import _ from 'lodash'
-import { Tilt, Callback, Fileset } from "../core/index.js";
+import { Tilt, Callback, Fileset } from "../core.js";
 
 /**
  * Set default layouts

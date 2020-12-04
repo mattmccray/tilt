@@ -1,6 +1,6 @@
 import multimatch from "multimatch";
 import { join } from 'path'
-import { Tilt, Callback, Fileset, useSite, usePage } from "../core/index.js";
+import { Tilt, Callback, Fileset, useSite, usePage } from "../core.js";
 
 /**
  * Render tilt templates (before layouts)

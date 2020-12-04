@@ -1,4 +1,4 @@
-import { Tilt, Callback, Fileset, setContext } from "../core/index.js";
+import { Tilt, Callback, Fileset, setContext } from "../core.js";
 import getHash from "../helpers/getHash.js";
 import contentRegistry, { CONTENT_TYPE_CSS, CONTENT_TYPE_JS } from "../core/registry.js";
 

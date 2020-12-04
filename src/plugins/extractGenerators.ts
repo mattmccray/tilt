@@ -1,5 +1,5 @@
 import multimatch from "multimatch";
-import { Tilt, Callback, Fileset, Page, setContext } from "../core/index.js";
+import { Tilt, Callback, Fileset, Page, setContext } from "../core.js";
 
 /**
  * Collect generators

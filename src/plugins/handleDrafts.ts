@@ -1,5 +1,5 @@
 import multimatch from "multimatch";
-import { Tilt, Callback, Fileset } from "../core/index.js";
+import { Tilt, Callback, Fileset } from "../core.js";
 
 /**
  * Removes or promotes draft pages.

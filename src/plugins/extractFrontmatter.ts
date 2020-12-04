@@ -1,6 +1,6 @@
 import multimatch from "multimatch";
 import { join } from 'path'
-import { Tilt, Callback, Fileset } from "../core/index.js";
+import { Tilt, Callback, Fileset } from "../core.js";
 
 /**
  * Extract front matter from all tilt templates, if exported

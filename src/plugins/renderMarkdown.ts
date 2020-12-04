@@ -2,7 +2,7 @@ import multimatch from "multimatch";
 import markdownToHtml from "../helpers/markdownToHtml.js";
 import markdownToText from "../helpers/markdownToText.js";
 import calculateContentStats from "../helpers/calculateContentStats.js";
-import { Tilt, Callback, Fileset } from "../core/index.js";
+import { Tilt, Callback, Fileset } from "../core.js";
 
 /**
  * Handle Markdown

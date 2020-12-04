@@ -1,6 +1,6 @@
 import multimatch from "multimatch";
 import _ from 'lodash';
-import { Tilt, Callback, Fileset, useCollection } from "../core/index.js";
+import { Tilt, Callback, Fileset, useCollection } from "../core.js";
 
 interface CollectionConfig {
   /** defaults to first segment of path-- This will be the key for useCollection(key) */
