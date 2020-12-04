@@ -1,4 +1,4 @@
-import getHash from "../helpers/getHash"
+import getHash from "../helpers/getHash.js"
 
 export const CONTENT_TYPE_CSS = 'css'
 export const CONTENT_TYPE_JS = 'js'

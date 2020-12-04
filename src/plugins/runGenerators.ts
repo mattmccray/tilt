@@ -1,7 +1,7 @@
 import { join } from 'path';
-import { Tilt, Callback, Fileset, Page, usePage, useSite, getContext } from "../core";
-import { normalizePageData } from './normalizePages';
-import { _popContextStack, _pushContextStack } from "../core/context";
+import { Tilt, Callback, Fileset, Page, usePage, useSite, getContext } from "../core/index.js";
+import { normalizePageData } from './normalizePages.js';
+import { _popContextStack, _pushContextStack } from "../core/context.js";
 
 export function runGenerators(options?: {}) {
   return async (files: Fileset, tilt: Tilt, done: Callback) => {

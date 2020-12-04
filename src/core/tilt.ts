@@ -1,6 +1,6 @@
 import Metalsmith from "metalsmith";
-import { Page, Site, Plugin, Ignore, Callback } from "./types";
-import { useFiles, useSite } from "./hooks";
+import { Page, Site, Plugin, Ignore, Callback } from "./types.js";
+import { useFiles, useSite } from "./hooks.js";
 
 export type Tilt = TiltInstance //Metalsmith
 

@@ -1,6 +1,6 @@
-import uniqueId from "lodash/uniqueId";
-import html, { css } from "../core/render";
-import registerContent from "../core/registry";
+import _ from "lodash";
+import html, { css } from "../core/render.js";
+import registerContent from "../core/registry.js";
 
 interface StyledComponent {
   (props?: { className?: string }, children?: string): string,
@@ -13,7 +13,7 @@ interface StyledComponentBuilder {
 }
 
 function styled_(tag: string, styles: string | ((cls: string) => string)): StyledComponent {
-  const style_id = uniqueId(tag + '_')
+  const style_id = _.uniqueId(tag + '_')
   const css = (typeof styles === 'function')
     ? styles(`.${style_id}`)
     : `.${style_id} { ${styles} }`

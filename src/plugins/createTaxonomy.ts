@@ -1,5 +1,5 @@
-import { Taxonomy } from "../core/taxonomies";
-import { Tilt, Callback, Fileset, useTaxonomy } from "../core";
+import { Taxonomy } from "../core/taxonomies.js";
+import { Tilt, Callback, Fileset, useTaxonomy } from "../core/index.js";
 
 /**
  * Creates Taxonomy of all pages with tags or cateogories 

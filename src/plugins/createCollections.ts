@@ -1,6 +1,6 @@
 import multimatch from "multimatch";
-import sortBy from 'lodash/sortBy';
-import { Tilt, Callback, Fileset, useCollection } from "../core";
+import _ from 'lodash';
+import { Tilt, Callback, Fileset, useCollection } from "../core/index.js";
 
 interface CollectionConfig {
   /** defaults to first segment of path-- This will be the key for useCollection(key) */
@@ -65,7 +65,7 @@ function createCollection(files: Fileset, pattern: string, sortField = "-date-ti
   if (customSort)
     collection = collection.sort(sortByDateThenTitle);
   else {
-    collection = sortBy(collection, sortField)
+    collection = _.sortBy(collection, sortField)
     if (reverseOrder) collection.reverse()
   }
 

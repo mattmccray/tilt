@@ -1,5 +1,5 @@
 import multimatch from "multimatch";
-import { Tilt, Callback, Fileset } from "../core";
+import { Tilt, Callback, Fileset } from "../core/index.js";
 
 /**
  * Set default layouts
@@ -27,7 +27,8 @@ export function applyDefaultLayoutsPlugin(options: { [path: string]: string }) {
 export default applyDefaultLayoutsPlugin
 
 
-export const setDefaultLayout = (layout: string, files: Fileset, force = false) => (file: string) => {
+// export 
+const setDefaultLayout = (layout: string, files: Fileset, force = false) => (file: string) => {
   // Set the layout
   files[file].layout = force
     ? layout

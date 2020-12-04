@@ -1,5 +1,5 @@
-import { CollectionPage, Fileset, Page, Site } from "./types"
-import { getContext, setContext } from "./context"
+import { CollectionPage, Fileset, Page, Site } from "./types.js"
+import { getContext, setContext } from "./context.js"
 
 export function useSite(): Site {
   return getContext('site')

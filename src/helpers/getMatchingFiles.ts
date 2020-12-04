@@ -1,6 +1,6 @@
 import patternMatches from 'multimatch';
-import { useFiles } from '../core/hooks';
-import { Fileset } from '../core/types';
+import { useFiles } from '../core/hooks.js';
+import { Fileset } from '../core/types.js';
 
 export const getMatchingFilenames = (files: Fileset, pattern: string) => Object
   .keys(files)

@@ -1,5 +1,4 @@
-import { useSite } from "../core/hooks";
-import { Tilt, Callback, Fileset } from "../core";
+import { Tilt, Callback, Fileset, useSite } from "../core/index.js";
 
 /** 
  * Fix all link and permalinks properties... 

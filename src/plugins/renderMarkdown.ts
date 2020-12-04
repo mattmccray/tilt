@@ -1,8 +1,8 @@
 import multimatch from "multimatch";
-import markdownToHtml from "../helpers/markdownToHtml";
-import markdownToText from "../helpers/markdownToText";
-import calculateContentStats from "../helpers/calculateContentStats";
-import { Tilt, Callback, Fileset } from "../core";
+import markdownToHtml from "../helpers/markdownToHtml.js";
+import markdownToText from "../helpers/markdownToText.js";
+import calculateContentStats from "../helpers/calculateContentStats.js";
+import { Tilt, Callback, Fileset } from "../core/index.js";
 
 /**
  * Handle Markdown

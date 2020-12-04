@@ -1,5 +1,5 @@
-import markdownToHtml from "../helpers/markdownToHtml";
-import { _pushContextStack, _popContextStack } from "./context";
+import markdownToHtml from "../helpers/markdownToHtml.js";
+import { _pushContextStack, _popContextStack } from "./context.js";
 
 export const html = (strings: TemplateStringsArray, ...values: any[]) => {
   let out = "";

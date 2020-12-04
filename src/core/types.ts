@@ -1,5 +1,5 @@
 import { Stats } from "fs";
-import Tilt from './tilt';
+import Tilt from './tilt.js';
 
 export type Plugin = (files: Fileset, tilt: Tilt, callback: Callback) => void;
 

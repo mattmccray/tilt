@@ -1,4 +1,4 @@
-import { Tilt, Callback, Fileset, Component, LayoutComponent, usePage, useSite } from "../core";
+import { Tilt, Callback, Fileset, Component, LayoutComponent, usePage, useSite } from "../core/index.js";
 
 /**
  * Handle Templating (use last of all)

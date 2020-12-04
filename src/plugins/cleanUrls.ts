@@ -1,4 +1,4 @@
-import { Tilt, Callback, Fileset } from "../core";
+import { Tilt, Callback, Fileset } from "../core/index.js";
 
 /**
  * Clean URLs

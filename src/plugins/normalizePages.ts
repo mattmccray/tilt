@@ -1,6 +1,6 @@
 import { basename, extname } from 'path'
-import { Tilt, Callback, Fileset, useFiles, Page } from "../core";
-import toSlug from '../helpers/toSlug';
+import { Tilt, Callback, Fileset, useFiles, Page } from "../core/index.js";
+import toSlug from '../helpers/toSlug.js';
 
 
 /**

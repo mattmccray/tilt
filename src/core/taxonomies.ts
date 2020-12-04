@@ -1,5 +1,5 @@
-import sortBy from 'lodash/sortBy'
-import { Fileset, Page } from './types'
+import _ from 'lodash'
+import { Fileset, Page } from './types.js'
 
 
 export class TagSet {
@@ -19,8 +19,8 @@ export class TagSet {
     return {
       name: this.name,
       slug: this.slug,
-      pages: sortBy(this.pages, this.sortBy),
-      pagesDesc: sortBy(this.pages, this.sortBy).reverse(),
+      pages: _.sortBy(this.pages, this.sortBy),
+      pagesDesc: _.sortBy(this.pages, this.sortBy).reverse(),
     }
   }
 }
@@ -35,7 +35,7 @@ export class Taxonomy {
   }
 
   get tagList() {
-    return sortBy(Array.from(this.tags.values()).map(tagset => tagset.toJSON()), 'pages.length').reverse()
+    return _.sortBy(Array.from(this.tags.values()).map(tagset => tagset.toJSON()), 'pages.length').reverse()
   }
 
   get categoryList() {
@@ -72,11 +72,11 @@ export class Taxonomy {
 
 
   private _categoryMapToArray(catMap: Map<string, TagSet>, sortField = 'date'): CategoryList[] {
-    return sortBy(Array.from(catMap.values()).map(tagset => ({
+    return _.sortBy(Array.from(catMap.values()).map(tagset => ({
       name: tagset.name,
       slug: tagset.slug,
-      pages: sortBy(tagset.pages, sortField),
-      pagesDesc: sortBy(tagset.pages, sortField).reverse(),
+      pages: _.sortBy(tagset.pages, sortField),
+      pagesDesc: _.sortBy(tagset.pages, sortField).reverse(),
       nested: this._categoryMapToArray(tagset.nested)
     })), ['name'])
   }

@@ -1,6 +1,6 @@
-import { Tilt, Callback, Fileset, setContext } from "../core";
-import getHash from "../helpers/getHash";
-import contentRegistry, { CONTENT_TYPE_CSS, CONTENT_TYPE_JS } from "../core/registry";
+import { Tilt, Callback, Fileset, setContext } from "../core/index.js";
+import getHash from "../helpers/getHash.js";
+import contentRegistry, { CONTENT_TYPE_CSS, CONTENT_TYPE_JS } from "../core/registry.js";
 
 /**
  * Extract registered Styles and Scripts, creating files at the specified
