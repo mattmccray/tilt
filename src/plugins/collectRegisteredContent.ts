@@ -1,6 +1,7 @@
 import { Tilt, Callback, Fileset, setContext } from "../core.js";
 import getHash from "../helpers/getHash.js";
 import contentRegistry, { CONTENT_TYPE_CSS, CONTENT_TYPE_JS } from "../core/registry.js";
+import { useGeneratedFilePaths } from "../core/hooks.js";
 
 /**
  * Extract registered Styles and Scripts, creating files at the specified
@@ -38,7 +39,7 @@ export function collectRegisteredContent({ css: cssPath, js: jsPath, hash = fals
       contentRegistry.clearContentType(CONTENT_TYPE_JS) //resetScriptRegistry()
     }
 
-    setContext('generatedFilePaths', {
+    useGeneratedFilePaths.set({
       css: cssPath,
       js: jsPath
     })

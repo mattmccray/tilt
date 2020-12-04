@@ -1,5 +1,6 @@
-import { CollectionPage, Fileset, Page, Site } from "./types.js"
+import { CollectionPage, Fileset, GeneratedFilePaths, Page, Site } from "./types.js"
 import { getContext, setContext } from "./context.js"
+import { Taxonomy } from "./taxonomies.js"
 
 export function useSite(): Site {
   return getContext('site')
@@ -21,11 +22,13 @@ export function useCollection(name: string): CollectionPage[] { // REturn Collec
 }
 useCollection.set = (name: string, val: Page[]) => setContext(`${name}Collection`, val)
 
-/**
- * @returns {import('./taxonomies.js').Taxonomy}
- */
-export function useTaxonomy() {
+export function useTaxonomy(): Taxonomy {
   return getContext('taxonomy')
 }
-useTaxonomy.set = (val: any) => setContext('taxonomy', val) //TODO: Type as Taxonomy!
+useTaxonomy.set = (val: Taxonomy) => setContext('taxonomy', val)
+
+export function useGeneratedFilePaths(): GeneratedFilePaths {
+  return getContext('generatedFilePaths')
+}
+useGeneratedFilePaths.set = (val: GeneratedFilePaths) => setContext('generatedFilePaths', val)
 

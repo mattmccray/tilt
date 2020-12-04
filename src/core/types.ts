@@ -81,3 +81,9 @@ export interface CollectionPage extends Page {
 export interface Fileset {
   [filename: string]: Page
 }
+
+
+export interface GeneratedFilePaths {
+  css: string
+  js: string
+}
