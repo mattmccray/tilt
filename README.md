@@ -13,15 +13,11 @@ const SiteInfo = {
 
 export type ISiteInfo = typeof SiteInfo
 
-const site = new Tilt((config) => {
-  config
-    .root(__dirName)
-    .metadata(SiteInfo)
+const site = new Tilt(__dirName, SiteInfo) 
     .source('./content')
     .destination('./www')
     .clean(true)
     .ignore(["**/.DS_Store", "**/.thumbsdb"])
-})
 
 site
   .use(pluginA)
