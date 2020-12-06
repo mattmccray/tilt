@@ -1,11 +1,11 @@
 import multimatch from "multimatch";
-import { Tilt, Callback, Fileset, Page, setContext } from "../core.js";
+import { Tilt, Callback, Fileset, Page, setContext, TiltEngine } from "../core.js";
 
 /**
  * Collect generators
  */
 export function extractGenerators(options?: {}) {
-  return (files: Fileset, tilt: Tilt, done: Callback) => {
+  return (files: Fileset, tilt: TiltEngine, done: Callback) => {
     setImmediate(done);
 
     const generators: Page[] = []

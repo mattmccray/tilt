@@ -1,6 +1,7 @@
 import { CollectionPage, Fileset, GeneratedFilePaths, Page, Site } from "./types.js"
 import { getContext, setContext } from "./context.js"
 import { Taxonomy } from "./taxonomies.js"
+import { EnabledFeatures } from "./configurator.js"
 
 export function useSite(): Site {
   return getContext('site')
@@ -32,3 +33,8 @@ export function useGeneratedFilePaths(): GeneratedFilePaths {
 }
 useGeneratedFilePaths.set = (val: GeneratedFilePaths) => setContext('generatedFilePaths', val)
 
+
+export function useEnabledFeatures(): EnabledFeatures {
+  return getContext('enabledFeatures')
+}
+useEnabledFeatures.set = (val: EnabledFeatures) => setContext('enabledFeatures', val)

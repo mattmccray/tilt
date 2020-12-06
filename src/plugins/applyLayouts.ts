@@ -1,4 +1,6 @@
-import { Tilt, Callback, Fileset, Component, LayoutComponent, usePage, useSite } from "../core.js";
+import { Tilt, Callback, Fileset, Component, LayoutComponent, usePage, useSite, TiltEngine } from "../core.js";
+
+export interface Layouts { [name: string]: LayoutComponent }
 
 /**
  * Handle Templating (use last of all)
@@ -16,8 +18,8 @@ import { Tilt, Callback, Fileset, Component, LayoutComponent, usePage, useSite }
  *    (site) => CustomLayout({ site, page: {...} }, children)
  * 
  */
-export function renderLayouts({ layouts }: { layouts: { [name: string]: LayoutComponent } }) {
-  return async (files: Fileset, tilt: Tilt, done: Callback) => {
+export function applyLayouts({ layouts }: { layouts: Layouts }) {
+  return async (files: Fileset, tilt: TiltEngine, done: Callback) => {
     const layoutFiles = Object.keys(files).filter(file => files[file].layout);
     const site = useSite()
 
@@ -31,7 +33,7 @@ export function renderLayouts({ layouts }: { layouts: { [name: string]: LayoutCo
           files[file].contents = fn({
             site,
             page: files[file]
-          });
+          }, files[file].contents.toString());
         }
         else {
           console.warn("Layout not found:", files[file].layout)
@@ -43,4 +45,4 @@ export function renderLayouts({ layouts }: { layouts: { [name: string]: LayoutCo
   };
 }
 
-export default renderLayouts
+export default applyLayouts

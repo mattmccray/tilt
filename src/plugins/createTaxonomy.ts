@@ -1,12 +1,12 @@
 import { Taxonomy } from "../core/taxonomies.js";
-import { Tilt, Callback, Fileset, useTaxonomy } from "../core.js";
+import { Tilt, Callback, Fileset, useTaxonomy, TiltEngine } from "../core.js";
 
 /**
  * Creates Taxonomy of all pages with tags or cateogories 
  * @param {any} [options] 
  */
 export function createTaxonomy(options?: {}) {
-  return (files: Fileset, tilt: Tilt, done: Callback) => {
+  return (files: Fileset, tilt: TiltEngine, done: Callback) => {
     setImmediate(done);
 
     // Create taxonomy of all content

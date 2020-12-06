@@ -1,57 +1,31 @@
 import Metalsmith from "metalsmith";
-import { Page, Site, Plugin, Ignore, Callback } from "./types.js";
+import { TiltConfigurator } from "./configurator.js";
 import { useFiles, useSite } from "./hooks.js";
+import { Fileset, Plugin, Site } from "./types.js";
 
-export type Tilt = TiltInstance //Metalsmith
+export class Tilt {
+  engine: Metalsmith | undefined
 
-interface TiltInstance {
-  directory(directory: string): TiltInstance;
-  directory(): string;
-  source(path: string): TiltInstance;
-  source(): string;
-  destination(path: string): TiltInstance;
-  destination(): string;
-  concurrency(max: number): TiltInstance;
-  concurrency(): number;
-  clean(clean: boolean): TiltInstance;
-  clean(): boolean;
-  frontmatter(frontmatter: boolean): TiltInstance;
-  frontmatter(): boolean;
-  metadata(metadata: object): TiltInstance;
-  metadata(): object;
-  use(plugin: Plugin | Plugin[]): TiltInstance;
-  ignore(files: string | string[] | Ignore | Ignore[]): TiltInstance;
-  ignore(): string[];
-  // path(...paths: string[]): string;
-  build(fn?: Metalsmith.Callback): object;
+  private constructor() { }
+
+  build(cb: (error?: any) => void): Fileset {
+    if (!this.engine) throw new Error("Tilt not configured.")
+
+    const meta = this.engine.metadata()
+    this.engine.metadata(Object.assign(meta, { builtAt: new Date() }))
+    return this.engine.build(cb) as Fileset
+  }
+
+  static configure(configure: (config: TiltConfigurator) => void): Tilt {
+    const site = new Tilt()
+    const configurator = new TiltConfigurator(site)
+    configure(configurator)
+    TiltConfigurator.finalize(site, configurator)
+    return site
+  }
 }
-
-export function Tilt<T extends Site>(workingDirectory: string, siteMetadata?: T): TiltInstance {
-  const metadata = Object.assign(siteMetadata ?? {}, {
-    isDevelopment: process.env.NODE_ENV !== "production",
-    builtAt: new Date()
-  })
-  const instance: any = Metalsmith(workingDirectory)
-    .metadata(metadata)
-    .use((files, tilt, done) => {
-      Object.keys(files).forEach(originalPath => {
-        files[originalPath].originalPath = originalPath
-        files[originalPath].filepath = originalPath
-      })
-
-      useSite.set(tilt.metadata() as any)
-      useFiles.set(files)
-
-      done(null, files, tilt)
-    })
-
-  return instance as TiltInstance
-}
-
-// export type Tilt = Metalsmith
 
 export default Tilt
-
 
 
 
@@ -88,16 +62,3 @@ export default Tilt
 //   write(files: object, fn: Metalsmith.Callback): void;
 //   writeFile(file: string, data: object): void;
 // }
-
-// declare function Metalsmith(directory: string): Metalsmith;
-
-// declare namespace Tilt {
-//     type Plugin = (files: Fileset, tilt: Tilt, callback: Callback)  => void;
-//     type Callback = (err?: Error | null, files?: Fileset, tilt?: Tilt) => void;
-
-//     interface Fileset {
-//       [index: string]: Page;
-//     }
-// }
-
-

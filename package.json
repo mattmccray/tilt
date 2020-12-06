@@ -17,6 +17,7 @@
   ],
   "scripts": {
     "build": "tsc",
+    "build:watch": "tsc --watch",
     "prepare": "npm run build",
     "version": "git add -A src",
     "postversion": "git push && git push --tags",

@@ -1,8 +1,8 @@
 import multimatch from "multimatch";
 import _ from 'lodash';
-import { Tilt, Callback, Fileset, useCollection } from "../core.js";
+import { Tilt, Callback, Fileset, useCollection, TiltEngine, Page } from "../core.js";
 
-interface CollectionConfig {
+export interface CollectionConfig {
   /** defaults to first segment of path-- This will be the key for useCollection(key) */
   name?: string
   /** defaults to '-date-title', a custom sort  */
@@ -11,6 +11,7 @@ interface CollectionConfig {
   reverse?: boolean
   /** defaults to '' -- You'll probably never need this. */
   suffix?: string
+  enablePermalinks?: boolean
 }
 
 /**
@@ -30,13 +31,12 @@ interface CollectionConfig {
  * @param {Object.<string, CollectionConfig>} options 
  */
 export function createCollections(options: { [pathGlob: string]: CollectionConfig }) {
-  return (files: Fileset, tilt: Tilt, done: Callback) => {
+  return (files: Fileset, tilt: TiltEngine, done: Callback) => {
     setImmediate(done);
 
     Object.keys(options).forEach(path => {
-      const { name, sortBy, reverse, suffix } = getConfig(options, path)
+      const { name, sortBy, reverse, suffix, enablePermalinks } = getConfig(options, path)
       const collection = createCollection(files, path, sortBy, reverse, suffix)
-
       useCollection.set(name, collection)
     })
   };
@@ -92,7 +92,7 @@ function createCollection(files: Fileset, pattern: string, sortField = "-date-ti
     }
   })
 
-  return collection
+  return collection as Page[]
 }
 
 // export default createCollection

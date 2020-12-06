@@ -1,7 +1,7 @@
 import multimatch from "multimatch";
 import merge from 'mergerino'
 import _ from 'lodash'
-import { Tilt, Callback, Fileset } from "../core.js";
+import { Tilt, Callback, Fileset, TiltEngine } from "../core.js";
 
 /**
  * Set default layouts
@@ -20,7 +20,7 @@ import { Tilt, Callback, Fileset } from "../core.js";
  * @param {object} options 
  */
 export function applyDefaultMetadata(options: { [path: string]: any }) {
-  return (files: Fileset, tilt: Tilt, done: Callback) => {
+  return (files: Fileset, tilt: TiltEngine, done: Callback) => {
     setImmediate(done);
     const filenames = Object.keys(files)
     const paths = Object.keys(options)

@@ -1,10 +1,11 @@
-import { Tilt, Callback, Fileset } from "../core.js";
+import { Tilt, Callback, Fileset, TiltEngine } from "../core.js";
+import { moveFile } from "../helpers/fileset.js";
 
 /**
  * Clean URLs
  */
 export function cleanUrls(options?: {}) {
-  return (files: Fileset, tilt: Tilt, done: Callback) => {
+  return (files: Fileset, tilt: TiltEngine, done: Callback) => {
     setImmediate(done);
     Object.keys(files).forEach(file => {
       const page = files[file]
@@ -27,8 +28,9 @@ export function cleanUrls(options?: {}) {
 
       page.sourcePath = file
       page.filepath = file
-      files[newPath] = page
-      delete files[file];
+      moveFile(files, file, newPath)
+      // files[newPath] = page
+      // delete files[file];
     })
   };
 }

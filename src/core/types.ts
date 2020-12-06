@@ -1,9 +1,12 @@
+import Metalsmith from "metalsmith";
 import { Stats } from "fs";
 import Tilt from './tilt.js';
 
-export type Plugin = (files: Fileset, tilt: Tilt, callback: Callback) => void;
+export type TiltEngine = Metalsmith
 
-export type Callback = (err?: Error | null, files?: Fileset, tilt?: Tilt) => void;
+export type Plugin = (files: Fileset, tilt: TiltEngine, callback: Callback) => void;
+
+export type Callback = (err?: Error | null, files?: Fileset, tilt?: TiltEngine) => void;
 export type Ignore = (path: string, stat: Stats) => void;
 
 export type Component = (props?: any, children?: string) => string

@@ -2,14 +2,15 @@ import multimatch from "multimatch";
 import markdownToHtml from "../helpers/markdownToHtml.js";
 import markdownToText from "../helpers/markdownToText.js";
 import calculateContentStats from "../helpers/calculateContentStats.js";
-import { Tilt, Callback, Fileset } from "../core.js";
+import { Tilt, Callback, Fileset, TiltEngine } from "../core.js";
+import { moveFile } from "../helpers/fileset.js";
 
 /**
  * Handle Markdown
  * Convert all .md files to .html files
  */
 export function renderMarkdown(options?: {}) {
-  return (files: Fileset, tilt: Tilt, done: Callback) => {
+  return (files: Fileset, tilt: TiltEngine, done: Callback) => {
     setImmediate(done);
     multimatch(Object.keys(files), "**/*.md").forEach((file: string) => {
       const fileContents = files[file].contents.toString()
@@ -20,9 +21,9 @@ export function renderMarkdown(options?: {}) {
       files[file].markdown = fileContents;
       files[file].contents = markdown;
       files[file].contentStats = calculateContentStats(markdownToText(markdown))
-      files[newFile] = files[file];
-
-      delete files[file];
+      moveFile(files, file, newFile)
+      // files[newFile] = files[file];
+      // delete files[file];
     });
   };
 }

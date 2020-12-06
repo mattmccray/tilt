@@ -1,5 +1,6 @@
 import multimatch from "multimatch";
-import { Tilt, Callback, Fileset } from "../core.js";
+import { Tilt, Callback, Fileset, TiltEngine } from "../core.js";
+import { moveFile } from "../helpers/fileset.js";
 
 /**
  * Removes or promotes draft pages.
@@ -13,7 +14,7 @@ import { Tilt, Callback, Fileset } from "../core.js";
  * 
  */
 export function handleDrafts({ paths, markOnly = false }: { paths: string[], markOnly?: boolean }) {
-  return (files: Fileset, tilt: Tilt, done: Callback) => {
+  return (files: Fileset, tilt: TiltEngine, done: Callback) => {
     setImmediate(done);
 
     paths.forEach((path) => {
@@ -26,10 +27,13 @@ export function handleDrafts({ paths, markOnly = false }: { paths: string[], mar
           files[file].tags = (files[file].tags || []).concat({ name: 'draft', slug: 'draft' })
           files[file].categories = (files[file].categories || []).concat([[{ name: 'Drafts', slug: 'drafts' }]])
           // Promote the file 
-          files[file.replace("/drafts", "")] = files[file]
+          moveFile(files, file, file.replace("/drafts", ""))
+          // files[file.replace("/drafts", "")] = files[file]
         }
-        // Remove original draft
-        delete files[file];
+        else {
+          // Remove  draft
+          delete files[file];
+        }
       });
     })
   };

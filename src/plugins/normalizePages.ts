@@ -1,5 +1,5 @@
 import { basename, extname } from 'path'
-import { Tilt, Callback, Fileset, useFiles, Page } from "../core.js";
+import { Tilt, Callback, Fileset, useFiles, Page, TiltEngine } from "../core.js";
 import toSlug from '../helpers/toSlug.js';
 
 
@@ -12,7 +12,7 @@ import toSlug from '../helpers/toSlug.js';
  * - Ensures categories are {name, slug}[][]
  */
 export function normalizePages(options?: {}) {
-  return (files: Fileset, tilt: Tilt, done: Callback) => {
+  return (files: Fileset, tilt: TiltEngine, done: Callback) => {
     setImmediate(done);
 
     Object.values(files).forEach(normalizePageData)

@@ -1,4 +1,4 @@
-import { Tilt, Callback, Fileset, setContext } from "../core.js";
+import { Tilt, Callback, Fileset, setContext, TiltEngine } from "../core.js";
 import getHash from "../helpers/getHash.js";
 import contentRegistry, { CONTENT_TYPE_CSS, CONTENT_TYPE_JS } from "../core/registry.js";
 import { useGeneratedFilePaths } from "../core/hooks.js";
@@ -13,8 +13,8 @@ import { useGeneratedFilePaths } from "../core/hooks.js";
  *    })
  * 
  */
-export function collectRegisteredContent({ css: cssPath, js: jsPath, hash = false }: { css: string, js: string, hash?: boolean }) {
-  return (files: Fileset, tilt: Tilt, done: Callback) => {
+export function generateRegisteredContent({ css: cssPath, js: jsPath, hash = false }: { css: string, js: string, hash?: boolean }) {
+  return (files: Fileset, tilt: TiltEngine, done: Callback) => {
     setImmediate(done);
 
     // Extract generated CSS
@@ -46,4 +46,4 @@ export function collectRegisteredContent({ css: cssPath, js: jsPath, hash = fals
   };
 }
 
-export default collectRegisteredContent
+export default generateRegisteredContent

@@ -1,10 +1,10 @@
-import { Tilt, Callback, Fileset } from "../core.js";
+import { Tilt, Callback, Fileset, TiltEngine } from "../core.js";
 
 /**
  * Remove any flagged or draft content 
  */
 export function removeFlagged(options?: {}) {
-  return (files: Fileset, tilt: Tilt, done: Callback) => {
+  return (files: Fileset, tilt: TiltEngine, done: Callback) => {
     setImmediate(done);
     Object.keys(files).forEach(file => {
       const isFlaggedContent = (

@@ -1,10 +1,10 @@
 import { join } from 'path';
-import { Tilt, Callback, Fileset, Page, usePage, useSite, getContext } from "../core.js";
+import { Tilt, Callback, Fileset, Page, usePage, useSite, getContext, TiltEngine } from "../core.js";
 import { normalizePageData } from './normalizePages.js';
 import { _popContextStack, _pushContextStack } from "../core/context.js";
 
 export function runGenerators(options?: {}) {
-  return async (files: Fileset, tilt: Tilt, done: Callback) => {
+  return async (files: Fileset, tilt: TiltEngine, done: Callback) => {
     const getFilePath = (filepath: string) => join((tilt as any)._directory, (tilt as any)._source, filepath);
 
     const site = useSite()
