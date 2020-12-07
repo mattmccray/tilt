@@ -1,4 +1,3 @@
-import _ from "lodash";
 import html, { css } from "../core/render.js";
 import { registerClient } from "../core/registry.js";
 
@@ -6,6 +5,8 @@ interface StyledComponent {
   (props?: { className?: string, [extra: string]: any }, children?: string): string,
   className: string
   componentName: string
+  tagName: string
+  extend: (strings: TemplateStringsArray, ...values: any[]) => StyledComponent
 }
 
 interface CssBuilder {
@@ -23,7 +24,7 @@ function styledComponent(name: string, tag: string | CssBuilder, styles?: string
     styles = tag
     tag = name
   }
-  const innerCls = generateClassName(name, tag) //_.uniqueId(name + '_')
+  const innerCls = generateClassName(name, tag)
   const clsName = name === tag ? innerCls : `${name} ${innerCls}`
   const css = (typeof styles === 'function')
     ? styles(`.${innerCls}`)
@@ -33,19 +34,22 @@ function styledComponent(name: string, tag: string | CssBuilder, styles?: string
 
   registerClient.stylesheet(css)
 
-  const Component = function (props?: { className?: string, [extra: string]: any }, children?: any) {
+  const Component: StyledComponent = (props?: { className?: string, [extra: string]: any }, children?: any) => {
     const className = (!!props && 'className' in props) ? props.className : ''
     return html`<${tag} class="${clsName} ${className}" ${toAttrs(props)}>${children}</${tag}>`
   }
   Component.componentName = name || 'Anonymous'
   Component.className = innerCls
+  Component.tagName = tag
+  Component.extend = extendStyledComponent.bind(null, Component)
 
   return Component
 }
 
 export const styled: StyledComponentBuilder = new Proxy(styledComponent, {
   get(target, tag, rec) {
-    return (strings: TemplateStringsArray, ...values: any[]) => styledComponent(String(tag), String(tag), css(strings, ...values))
+    return (strings: TemplateStringsArray, ...values: any[]) =>
+      styledComponent(String(tag), String(tag), css(strings, ...values))
   }
 }) as StyledComponentBuilder
 
@@ -68,38 +72,51 @@ function generateClassName(name?: string, tag?: string) {
   return '_' + classCount.toString(26) 
 }
 
-// const Test = styled.div`
-//   color: red;
-// `
-
-
 function parseNestedCss(cls: string, styles: string) {
-  let compoundCss = ''
-  let parent: string[] = [`.${cls} {`]
-  let remainder: string[] = []
-
-  let isCollectingRemainder = false
+  let main: string[] = [`.${cls} {`]
+  let nested: string[] = []
+  let collectNested = false
 
   styles.split('\n').forEach(line => {
-    if (!isCollectingRemainder) {
+    if (!collectNested) {
       if (line.includes('&')) {
-        isCollectingRemainder = true
-        parent.push("}")
+        collectNested = true
+        main.push("}")
       }
       else {
-        parent.push(line)
+        main.push(line)
       }
     }
 
-    if (isCollectingRemainder) {
-      remainder.push(line.replace(/\&/g, `.${cls}`))
+    if (collectNested) {
+      nested.push(line.replace(/\&/g, `.${cls}`))
     }
   })
 
+  return [...main, ...nested].join('\n')
+}
 
-  compoundCss = [...parent, ...remainder].join('\n\n')
+function extendStyledComponent(Component: StyledComponent, strings: TemplateStringsArray, values: any[]): StyledComponent {
+  const id = generateClassName(Component.componentName, Component.tagName)
+  const styles = css(strings, values)
 
-  // console.log("CompoundCSS:", { styles, compoundCss })
+  let inner_css = parseNestedCss(id + '.' + Component.className, styles)
 
-  return compoundCss
+  if (inner_css.split(/\{/).length > inner_css.split(/\}/).length) {
+    inner_css += '}'
+  }
+
+  registerClient.stylesheet(inner_css)
+
+  const WrappedComponent: StyledComponent = (props, children) => {
+    const className = (!!props && 'className' in props) ? props.className : ''
+    return Component({ ...props, className: id + ' ' + className }, children)
+  }
+
+  WrappedComponent.tagName = Component.tagName
+  WrappedComponent.componentName = Component.componentName
+  WrappedComponent.className = id
+  WrappedComponent.extend = extendStyledComponent.bind(null, WrappedComponent)
+
+  return WrappedComponent
 }

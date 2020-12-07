@@ -227,7 +227,7 @@ export class TiltConfigurator {
     }
 
     if (!!features.defaultMetadata) {
-      config.plugins.add(plugins.applyDefaultMetadata(features.defaultMetadata), 'render')
+      config.plugins.add(plugins.applyDefaultMetadata(features.defaultMetadata), 'init')
     }
 
     if (!!features.generators) {
