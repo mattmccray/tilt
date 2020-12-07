@@ -6,6 +6,7 @@ import { useEnabledFeatures, useFiles, useGeneratedFilePaths, useSite } from "./
 import Tilt from "./tilt.js"
 import { Site, Plugin } from "./types.js"
 import * as plugins from '../plugins.js'
+import { MinifyOptions } from '../plugins/runMinify.js'
 
 type BuildPhase
   = 'pre'
@@ -44,6 +45,7 @@ export interface EnabledFeatures {
   staticFiles?: {
     [source: string]: string // destination
   }
+  minify?: MinifyOptions
 
   [feature: string]: any
 }
@@ -113,8 +115,14 @@ export class TiltConfigurator {
     this.featureConfigs.aliases = {}
     return this
   }
+
   enableCleanUrls() {
     this.featureConfigs.cleanUrls = {}
+    return this
+  }
+
+  enableMinify(options: MinifyOptions) {
+    this.featureConfigs.minify = options
     return this
   }
 
@@ -127,6 +135,7 @@ export class TiltConfigurator {
     this.featureConfigs.contentRegistry = extractionPaths
     return this
   }
+
   enableCollections(collectionOptions: EnabledFeatures['collections']) {
     this.featureConfigs.collections = collectionOptions
     return this
@@ -187,6 +196,7 @@ export class TiltConfigurator {
 
     config.plugins.add(plugins.normalizePages(), 'pre')
     config.plugins.add(plugins.extractFrontmatter({}), 'pre')
+    config.plugins.add(plugins.extractExcerpts({}), 'pre')
     config.plugins.add(plugins.removeFlagged({}), 'pre')
     config.plugins.add(plugins.renderMarkdown({}), 'render')
     config.plugins.add(plugins.renderTiltTemplates({}), 'render')
@@ -213,7 +223,7 @@ export class TiltConfigurator {
 
     if (!!features.contentRegistry) {
       useGeneratedFilePaths.set(features.contentRegistry)
-      config.plugins.add(plugins.generateRegisteredContent(features.contentRegistry), 'build')
+      config.plugins.add(plugins.generateRegisteredContent(features.contentRegistry), 'after-build')
     }
 
     if (!!features.defaultMetadata) {
@@ -242,6 +252,10 @@ export class TiltConfigurator {
 
     if (!!features.taxonomy) {
       config.plugins.add(plugins.createTaxonomy(), 'generate')
+    }
+
+    if (!!features.minify) {
+      config.plugins.add(plugins.runMinify(features.minify), 'after-build')
     }
 
     config.getPlugins().forEach((fn: any) => metalsmith.use(fn))

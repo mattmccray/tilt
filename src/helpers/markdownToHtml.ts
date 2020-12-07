@@ -13,12 +13,14 @@ var md = new MarkdownIt({
 });
 
 md.use(highlight, {
+  inline: true,
   register: {
     fountain: (hljs: any) => {
       return () => { }
     }
   }
 })
+
 md.use(mark)
 md.use(tasklists)
 md.use(footnote)
@@ -27,8 +29,12 @@ md.use(container, 'full-width')
 md.use(container, 'info')
 md.use(container, 'note')
 md.use(container, 'warning')
+
+md.use(container, 'pull-left')
+md.use(container, 'pull-right')
 md.use(container, 'left')
 md.use(container, 'right')
+
 md.use(container, 'centered')
 md.use(container, 'definition')
 md.use(container, 'spoilers')
@@ -36,7 +42,9 @@ md.use(container, 'verbatim')
 md.use(container, 'quote')
 md.use(container, 'attribution')
 
-
+export function configureMarkdownContainers(containers: string[]) {
+  containers.forEach(name => md.use(container, name))
+}
 
 md.renderer.rules.footnote_caption = function render_footnote_caption(tokens: any, idx: any/*, options, env, slf*/) {
   var n = Number(tokens[idx].meta.id + 1).toString();

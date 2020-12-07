@@ -1,4 +1,5 @@
 export * from './helpers/calculateContentStats.js'
+export * from './helpers/classes.js'
 export * from './helpers/getHash.js'
 export * from './helpers/getMatchingFiles.js'
 export * from './helpers/getObjectName.js'

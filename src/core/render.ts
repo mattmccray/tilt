@@ -1,7 +1,7 @@
 import markdownToHtml from "../helpers/markdownToHtml.js";
 import { _pushContextStack, _popContextStack } from "./context.js";
 
-export const html = (strings: TemplateStringsArray, ...values: any[]) => {
+export function html(strings: TemplateStringsArray, ...values: any[]) {
   let out = "";
   strings.forEach((string, i) => {
     const value = values[i];
@@ -20,7 +20,7 @@ export const html = (strings: TemplateStringsArray, ...values: any[]) => {
     }
     else if (type === "object" && !isNullish) {
       out += string + (isDate ? value.toUTCString() : value)
-      console.warn("Templating warning: failed to coerce an object in your template.", value)
+      if (!isDate) console.warn("Templating warning: failed to coerce an object in your template.", value)
     }
     else { // undefined, null, boolean
       out += string

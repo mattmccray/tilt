@@ -45,6 +45,7 @@
     "typescript": "^4.1.2"
   },
   "dependencies": {
+    "@types/minify": "^6.0.0",
     "hasha": "^5.2.2",
     "html-to-text": "^6.0.0",
     "lodash": "^4.17.20",
@@ -77,6 +78,7 @@
     "metalsmith-tags": "^2.1.0",
     "metalsmith-watch": "^1.0.3",
     "metalsmith-writemetadata": "^0.4.5",
+    "minify": "^6.0.1",
     "pluralize": "^8.0.0",
     "remove-markdown": "^0.3.0"
   }

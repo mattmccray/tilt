@@ -40,6 +40,7 @@ export interface Page {
   link?: string
   permalink?: string
   description?: string
+  excerpt?: string
   date?: Date
   isoDate?: string
   year?: string

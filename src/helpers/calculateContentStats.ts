@@ -1,12 +1,12 @@
 import pluralize from 'pluralize'
 
-export function calculateContentStats(content: string) {
+export function calculateContentStats(content: string, htmlEncode = true) {
   const count = wordCount(content)
   const wordCountRounded = count < 50 ? 50 : Math.round(count / 50) * 50
   const readingTimeValue = parseFloat((count / 200).toFixed(1))
   const wholeMinutes = Math.round(readingTimeValue)
   const readingTime = wholeMinutes < 1
-    ? '< 1 minute'
+    ? `${htmlEncode ? '&lt;' : '<'} 1 minute`
     : `${wholeMinutes} ${pluralize('minute', wholeMinutes)}`
 
   return { wordCount: count, wordCountRounded, readingTimeValue, wholeMinutes, readingTime }
