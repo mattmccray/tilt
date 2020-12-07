@@ -7,6 +7,7 @@ import Tilt from "./tilt.js"
 import { Site, Plugin } from "./types.js"
 import * as plugins from '../plugins.js'
 import { MinifyOptions } from '../plugins/runMinify.js'
+import { configureMarkdownContainers } from '../helpers/markdownToHtml.js'
 
 type BuildPhase
   = 'pre'
@@ -37,6 +38,9 @@ export interface EnabledFeatures {
   }
   cleanUrls?: any
   taxonomy?: any
+  markdown?: {
+    containers: string[]
+  }
   contentRegistry?: {
     css: string
     js: string
@@ -91,8 +95,13 @@ export class TiltConfigurator {
     return this
   }
 
-  applyDefaultMetadata(options: any) {
+  applyDefaultMetadata(options: { [filepath: string]: any }) {
     this.featureConfigs.defaultMetadata = options
+    return this
+  }
+
+  configureMarkdown(options: EnabledFeatures['markdown']) {
+    this.featureConfigs.markdown = options
     return this
   }
 
@@ -235,6 +244,10 @@ export class TiltConfigurator {
       config.plugins.add(plugins.runGenerators({
         enablePermalinks: !!features.permaLinks
       }), 'build')
+    }
+
+    if (!!features.markdown) {
+      configureMarkdownContainers(features.markdown.containers)
     }
 
     if (!!features.layouts) {

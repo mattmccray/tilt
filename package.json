@@ -1,5 +1,5 @@
 {
-  "name": "tilt",
+  "name": "@elucidata/tilt",
   "version": "1.0.0",
   "description": "Static website toolkit with Metalsmith underpinnings",
   "keywords": [

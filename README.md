@@ -1,11 +1,9 @@
-# tilt
+# Tilt
+
 Static website toolkit with Metalsmith underpinnings
 
-
-<div style="font-size:300%">WIP</div>
-
 ```
-npm install --save-dev mattmccray/tilt
+npm install --save-dev @elucidata/tilt
 ```
 
 ## Example Configuration
@@ -13,7 +11,7 @@ npm install --save-dev mattmccray/tilt
 `build.js`
 ```js
 import { dirname } from 'path';
-import { Tilt } from 'tilt'
+import { Tilt } from '@elucidata/tilt'
 import * as layouts from './theme/layouts.js'
 
 const info = {
@@ -44,16 +42,16 @@ const site = Tilt.configure((site) => { site
       layout: "Post",
     },
   })
-  .enableContentRegistry({
-    css: `theme/css/shared.css`,
-    js: `theme/js/shared.js`
-  })
   .enableCollections({
     "posts/**": {},
   })
   .enableDrafts({
     mode: process.env.NODE_ENV === "production" ? 'purge' : 'mark',
     collections: ["posts"]
+  })
+  .enableContentRegistry({
+    css: `theme/css/shared.css`,
+    js: `theme/js/shared.js`
   })
   .copyStaticFiles({
     './assets': './',
