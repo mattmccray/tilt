@@ -1,1 +1,0 @@
-import { Tilt } from '../../lib'

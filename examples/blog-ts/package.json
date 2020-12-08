@@ -1,6 +1,0 @@
-{
-  "name": "tilt-blog-ts-example",
-  "dependencies": {
-    "tilt": "file:../../"
-  }
-}
