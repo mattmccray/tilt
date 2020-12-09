@@ -4,6 +4,13 @@ import tasklists from 'markdown-it-task-lists'
 import container from 'markdown-it-container'
 import footnote from 'markdown-it-footnote'
 import highlight from 'markdown-it-highlightjs'
+import deflist from 'markdown-it-deflist'
+import abbr from 'markdown-it-abbr'
+import emoji from 'markdown-it-emoji'
+import sub from 'markdown-it-sub'
+import sup from 'markdown-it-sup'
+import ins from 'markdown-it-ins'
+
 
 var md = new MarkdownIt({
   html: true,
@@ -24,22 +31,12 @@ md.use(highlight, {
 md.use(mark)
 md.use(tasklists)
 md.use(footnote)
-
-// md.use(container, 'test')
-// md.use(container, 'full-width')
-// md.use(container, 'info')
-// md.use(container, 'note')
-// md.use(container, 'warning')
-// md.use(container, 'pull-left')
-// md.use(container, 'pull-right')
-// md.use(container, 'left')
-// md.use(container, 'right')
-// md.use(container, 'centered')
-// md.use(container, 'definition')
-// md.use(container, 'spoilers')
-// md.use(container, 'verbatim')
-// md.use(container, 'quote')
-// md.use(container, 'attribution')
+md.use(deflist)
+md.use(abbr)
+md.use(emoji)
+md.use(sub)
+md.use(sup)
+md.use(ins)
 
 export function configureMarkdownContainers(containers: string[]) {
   containers.forEach(name => md.use(container, name))
@@ -52,7 +49,6 @@ md.renderer.rules.footnote_caption = function render_footnote_caption(tokens: an
     n += ':' + tokens[idx].meta.subId;
   }
 
-  // return '(' + n + ')';
   return n;
 }
 
