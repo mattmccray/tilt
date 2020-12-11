@@ -8,13 +8,17 @@ export function setContext(key: string, value: any) {
   _stack[0][key] = value
 }
 
-export function withNestedContext<T = any>(fn: (...args: any[]) => T) {
-  return (...args: any[]) => {
-    _pushContextStack()
-    const results = fn(...args)
-    _popContextStack()
-    return results
+export function inNestedContext<T = any>(fn: () => T): T | undefined {
+  let results
+  _pushContextStack()
+  try {
+    results = fn()
   }
+  catch (error) {
+    console.warn(`Error in nested context: ${error}`)
+  }
+  _popContextStack()
+  return results
 }
 
 

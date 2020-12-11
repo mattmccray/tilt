@@ -1,6 +1,12 @@
 import _ from 'lodash'
 import { Fileset, Page } from './types.js'
 
+export interface Tag {
+  name: string
+  slug: string
+  pages: Page[]
+  pagesDesc: Page[]
+}
 
 export class TagSet {
   name: string
@@ -15,7 +21,7 @@ export class TagSet {
     this.sortBy = sortBy
   }
 
-  toJSON() {
+  toJSON(): Tag {
     return {
       name: this.name,
       slug: this.slug,

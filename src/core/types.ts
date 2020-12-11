@@ -91,3 +91,7 @@ export interface GeneratedFilePaths {
   css: string
   js: string
 }
+
+export interface PageGenerator {
+  (filepath: string, renderer: (newPage?: Page) => string): Page
+}
