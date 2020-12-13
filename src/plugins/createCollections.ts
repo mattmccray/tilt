@@ -9,9 +9,11 @@ export interface CollectionConfig {
   sortBy?: string
   /** defaults to false(unless sortBy is '-date-title') */
   reverse?: boolean
-  /** defaults to '' -- You'll probably never need this. */
+/**
+ * @deprecated
+ * defaults to '' -- You'll probably never need this.
+ */
   suffix?: string
-  enablePermalinks?: boolean
 }
 
 /**
@@ -35,7 +37,7 @@ export function createCollections(options: { [pathGlob: string]: CollectionConfi
     setImmediate(done);
 
     Object.keys(options).forEach(path => {
-      const { name, sortBy, reverse, suffix, enablePermalinks } = getConfig(options, path)
+      const { name, sortBy, reverse, suffix } = getConfig(options, path)
       const collection = createCollection(files, path, sortBy, reverse, suffix)
       useCollection.set(name, collection)
     })

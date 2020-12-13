@@ -68,6 +68,10 @@ function expandParentSelectors(className: string, styles: string) {
         collectingNested = true
         main.push("}")
       }
+      else if (line.trim().startsWith('@media')) {
+        collectingNested = true
+        main.push("}")
+      }
       else {
         main.push(line)
       }
