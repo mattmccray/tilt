@@ -1,71 +1,58 @@
 # Tilt
 
-Static website toolkit with Metalsmith underpinnings
+Static website toolkit
 
 ```
-npm install --save-dev @elucidata/tilt
+npm install --save-dev mattmccray/tilt@next
 ```
 
-## Example Configuration
+## Example Site
 
-`build.js`
+```
+$/
+  content/
+    posts/
+      hello-world/
+        index.md
+        cover.jpg
+        chart.png
+  site/
+    index.ts
+    theme/
+      HomePage.tsx
+      Layout.tsx
+      PostArchivePage.tsx
+```
+
+
+`site/index.ts`
 ```js
-import { dirname } from 'path';
-import { Tilt } from '@elucidata/tilt'
-import * as layouts from './theme/layouts.js'
+import { configure, onGenerate } from '@elucidata/tilt'
+import Layout from './theme/Layout'
+import HomePage from './theme/HomePage'
+import PostArchivePage from './theme/PostArchivePage'
 
-const info = {
-  site: {
-    title: "A Test Blog",
-    author: "Me",
-    description: "A simple example of a simple blog. Simple.",
-    url: 'http://localhost',
-  },
-  build: {
-    cwd: dirname(new URL(import.meta.url).pathname),
-    source: './content',
-    destination: './www',
-    clean: true,
+configure({
+  title: "A Test Blog",
+  author: "Me",
+  description: "A simple example of a simple blog. Simple.",
+  url: 'http://localhost',
+
+  tilt: {
+    source: "./content",
+    target: "./www"
   }
-}
-
-const site = Tilt.configure((site) => { site
-  .setBuildInfo(info.build)
-  .setSiteInfo(info.site)
-  .enableLayouts(layouts)
-  .enableGenerators()
-  .enableAliases()
-  .enableCleanUrls()
-  .enableTaxonomy()
-  .applyDefaultMetadata({
-    "posts/**": {
-      layout: "Post",
-    },
-  })
-  .enableCollections({
-    "posts/**": {},
-  })
-  .enableDrafts({
-    mode: process.env.NODE_ENV === "production" ? 'purge' : 'mark',
-    collections: ["posts"]
-  })
-  .enableContentRegistry({
-    css: `theme/css/shared.css`,
-    js: `theme/js/shared.js`
-  })
-  .copyStaticFiles({
-    './assets': './',
-    './theme/assets': './theme',
-  })
 })
 
+onGenerate((fileset, { db, copyFiles, renderContent, renderComponent }) => {
 
-console.time("Site built");
-console.log("Building...")
+  db.collection('posts').forEach(content => {
+    fileset[`/posts/${content.slug}/index.html`] = renderContent(content, Layout)
+  })
 
-site.build((err) => {
-  if (err) throw err
-  console.timeEnd("Site built");
+  fileset['/posts/index.html'] = renderComponent(PostArchivePage, Layout)
+
+  fileset['/index.html'] = renderComponent(HomePage, Layout)
 })
 ```
 

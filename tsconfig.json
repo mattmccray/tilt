@@ -1,18 +1,26 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "declaration": true,
+    // "target": "ESNext",
+    // "module": "ESNext",
+    // "moduleResolution": "Node",
+    // "declaration": true,
+    // "outDir": "./lib",
+    // "strict": true,
+    // "esModuleInterop": true,
+    // "lib": [
+    //   "es2017",
+    //   "es7",
+    //   "es6",
+    //   "dom"
+    // ],
+    "target": "es5",
+    "module": "commonjs",
+    "jsx": "react",
     "outDir": "./lib",
+    "declaration": true,
     "strict": true,
     "esModuleInterop": true,
-    "lib": [
-      "es2017",
-      "es7",
-      "es6",
-      "dom"
-    ],
+    "baseUrl": "./",
   },
   "include": [
     "src"
@@ -20,5 +28,8 @@
   "exclude": [
     "node_modules",
     "**/__tests__/*"
-  ]
+  ],
+  "ts-node": {
+    "swc": true
+  }
 }
